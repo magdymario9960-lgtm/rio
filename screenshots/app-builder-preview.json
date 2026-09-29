@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Rio Cafe",
+      "hasCanvas": false,
+      "bodyTextLen": 141,
+      "bodyTextHash": "4f5b34165f66daf7d9a28461e6ae6f22bef015eee7ad9e45c79a317f37b2f199",
+      "bodyTextPrefix": "تخطي إلى المنيو OPEN · 24 HOURS · مفتوح دائماً · 24/7 CAFE · EST",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Rio Cafe",
+      "hasCanvas": false,
+      "bodyTextLen": 141,
+      "bodyTextHash": "4f5b34165f66daf7d9a28461e6ae6f22bef015eee7ad9e45c79a317f37b2f199",
+      "bodyTextPrefix": "تخطي إلى المنيو OPEN · 24 HOURS · مفتوح دائماً · 24/7 CAFE · EST",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
