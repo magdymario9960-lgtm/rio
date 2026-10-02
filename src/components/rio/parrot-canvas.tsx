@@ -30,7 +30,7 @@ export function ParrotCanvas() {
   if (fallback || !Stage) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[1]">
+    <div className="pointer-events-none fixed inset-0 z-[1] opacity-55 md:opacity-100">
       <Stage />
     </div>
   );

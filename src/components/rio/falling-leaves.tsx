@@ -15,16 +15,25 @@ type Leaf = {
   opacity: number;
 };
 
-const LEAVES: Leaf[] = Array.from({ length: 22 }, (_, i) => ({
+const LEAVES: Leaf[] = Array.from({ length: 28 }, (_, i) => ({
   left: `${((i * 17) % 98) + 1}%`,
   delay: `${((i * 0.73) % 11).toFixed(2)}s`,
-  duration: `${12 + (i % 7)}s`,
-  size: 14 + (i % 6) * 4,
-  drift: `${-48 + (i % 9) * 12}px`,
+  duration: `${11 + (i % 8)}s`,
+  size: 12 + (i % 7) * 4,
+  drift: `${-56 + (i % 10) * 12}px`,
   spin: `${i % 2 === 0 ? "" : "-"}${220 + (i % 5) * 70}deg`,
   color: PALETTE[i % PALETTE.length],
-  sway: `${6 + (i % 5)}s`,
-  opacity: 0.38 + (i % 5) * 0.08,
+  sway: `${5.4 + (i % 5)}s`,
+  opacity: 0.32 + (i % 5) * 0.08,
+}));
+
+const MOTES = Array.from({ length: 18 }, (_, i) => ({
+  left: `${((i * 23) % 96) + 2}%`,
+  delay: `${((i * 0.9) % 8).toFixed(2)}s`,
+  duration: `${9 + (i % 6)}s`,
+  size: 2 + (i % 3),
+  drift: `${-24 + (i % 8) * 8}px`,
+  opacity: 0.28 + (i % 4) * 0.1,
 }));
 
 function Petal() {
@@ -53,6 +62,21 @@ export function FallingLeaves() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[5] overflow-hidden" aria-hidden="true">
+      {MOTES.map((mote, i) => (
+        <span
+          key={`mote-${i}`}
+          className="mote"
+          style={{
+            left: mote.left,
+            width: mote.size,
+            height: mote.size,
+            opacity: mote.opacity,
+            ["--mote-delay" as string]: mote.delay,
+            ["--mote-duration" as string]: mote.duration,
+            ["--mote-drift" as string]: mote.drift,
+          }}
+        />
+      ))}
       {LEAVES.map((leaf, i) => (
         <span
           key={i}

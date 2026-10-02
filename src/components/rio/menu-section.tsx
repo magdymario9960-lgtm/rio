@@ -7,6 +7,42 @@ import { CloseIcon, DownloadIcon, ExpandIcon, MenuBookIcon } from "@/components/
 import { GoldFlourish } from "@/components/rio/ornament";
 import { cn } from "@/lib/utils";
 
+function PageNumbers({
+  count,
+  page,
+  onPick,
+  large,
+}: {
+  count: number;
+  page: number;
+  onPick: (i: number) => void;
+  large?: boolean;
+}) {
+  if (count <= 1) return null;
+  return (
+    <div className={cn("flex flex-wrap items-center justify-center", large ? "gap-3 py-4" : "mt-3 gap-2")}>
+      {Array.from({ length: count }, (_, i) => (
+        <button
+          key={i}
+          type="button"
+          onClick={() => onPick(i)}
+          className={cn(
+            "font-sans font-bold transition-transform duration-150",
+            large
+              ? "grid size-14 place-items-center rounded-2xl text-2xl md:size-16 md:text-3xl"
+              : "grid size-11 place-items-center rounded-xl text-lg",
+            i === page ? "bg-gold text-ink scale-105" : "bg-wine-mid text-ivory hover:bg-wine-soft",
+          )}
+          aria-label={`صفحة ${i + 1}`}
+          aria-current={i === page ? "page" : undefined}
+        >
+          {i + 1}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function MenuSection() {
   const branchId = useRioStore((s) => s.branchId) ?? "alAslougy";
   const setLookAt = useRioStore((s) => s.setLookAt);
@@ -25,6 +61,12 @@ export function MenuSection() {
   const branch = BRANCHES[active];
   const pages = branch.menuKind === "pdf" ? (branch.menuPages ?? []) : branch.menuImage ? [branch.menuImage] : [];
   const current = pages[Math.min(page, pages.length - 1)];
+
+  const goHome = () => {
+    setLightbox(false);
+    setZoom(1);
+    document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section id="menu" className="relative px-5 py-24 md:py-32">
@@ -91,22 +133,7 @@ export function MenuSection() {
                   />
                 </div>
               ) : null}
-              {pages.length > 1 ? (
-                <div className="mt-3 flex items-center justify-center gap-2">
-                  {pages.map((src, i) => (
-                    <button
-                      key={src}
-                      type="button"
-                      onClick={() => setPage(i)}
-                      className={cn(
-                        "size-2 rounded-full transition-transform",
-                        i === page ? "scale-125 bg-gold" : "bg-ivory/30",
-                      )}
-                      aria-label={`صفحة ${i + 1}`}
-                    />
-                  ))}
-                </div>
-              ) : null}
+              <PageNumbers count={pages.length} page={page} onPick={setPage} large={pages.length > 1} />
             </div>
           </div>
         </div>
@@ -121,6 +148,9 @@ export function MenuSection() {
         >
           <div className="mx-auto flex h-full max-w-5xl flex-col">
             <div className="flex items-center justify-between gap-2 py-2">
+              <RioButton variant="gold" className="min-h-11 px-5" onClick={goHome} ariaLabel="رجوع للرئيسية">
+                رجوع
+              </RioButton>
               <div className="flex gap-2">
                 <RioButton variant="ghost" className="min-h-11 px-4" onClick={() => setZoom((z) => Math.min(3, z + 0.25))}>
                   +
@@ -128,18 +158,18 @@ export function MenuSection() {
                 <RioButton variant="ghost" className="min-h-11 px-4" onClick={() => setZoom((z) => Math.max(1, z - 0.25))}>
                   −
                 </RioButton>
+                <button
+                  type="button"
+                  className="grid size-11 place-items-center rounded-full text-ivory"
+                  onClick={() => {
+                    setLightbox(false);
+                    setZoom(1);
+                  }}
+                  aria-label="إغلاق"
+                >
+                  <CloseIcon />
+                </button>
               </div>
-              <button
-                type="button"
-                className="grid size-11 place-items-center rounded-full text-ivory"
-                onClick={() => {
-                  setLightbox(false);
-                  setZoom(1);
-                }}
-                aria-label="إغلاق"
-              >
-                <CloseIcon />
-              </button>
             </div>
             <div className="min-h-0 flex-1 overflow-auto" style={{ touchAction: "pinch-zoom" }}>
               <img
@@ -149,23 +179,7 @@ export function MenuSection() {
                 style={{ width: `${zoom * 100}%`, maxWidth: "none" }}
               />
             </div>
-            {pages.length > 1 ? (
-              <div className="flex justify-center gap-2 py-3">
-                {pages.map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => setPage(i)}
-                    className={cn(
-                      "rounded-full px-3 py-2 text-sm",
-                      i === page ? "bg-gold text-ink" : "text-ivory-dim",
-                    )}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-              </div>
-            ) : null}
+            <PageNumbers count={pages.length} page={page} onPick={setPage} large />
           </div>
         </div>
       ) : null}

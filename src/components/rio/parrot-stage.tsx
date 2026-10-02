@@ -7,6 +7,9 @@ import { prefersReducedMotion } from "@/lib/utils";
 
 useGLTF.preload("/models/parrot.glb");
 
+/** Authored mesh faces -X; this yaw puts the cream macaw face toward the camera. */
+const FACE_YAW = Math.PI / 2 + 0.55;
+
 function ParrotModel({ reduced, isMobile }: { reduced: boolean; isMobile: boolean }) {
   const { scene } = useGLTF("/models/parrot.glb", true, true);
   const root = useRef<THREE.Group>(null);
@@ -28,7 +31,7 @@ function ParrotModel({ reduced, isMobile }: { reduced: boolean; isMobile: boolea
         const mat = mesh.material;
         if (mat && !Array.isArray(mat)) {
           const std = mat as THREE.MeshStandardMaterial;
-          std.envMapIntensity = 0.7;
+          std.envMapIntensity = 0.75;
           std.roughness = Math.min(std.roughness ?? 0.6, 0.62);
         }
       }
@@ -52,7 +55,7 @@ function ParrotModel({ reduced, isMobile }: { reduced: boolean; isMobile: boolea
       const box = new THREE.Box3().setFromObject(body);
       const size = box.getSize(new THREE.Vector3());
       if (size.y > 0.0001) {
-        const target = isMobile ? 1.05 : 1.55;
+        const target = isMobile ? 1.05 : 1.48;
         body.scale.setScalar(target / size.y);
         fitted.current = true;
       }
@@ -61,17 +64,19 @@ function ParrotModel({ reduced, isMobile }: { reduced: boolean; isMobile: boolea
     const { pointer, scroll } = useRioStore.getState();
     t.current += d;
 
-    const side = isMobile ? 0.7 : 1.35;
-    const x = THREE.MathUtils.lerp(side, isMobile ? 0.9 : 1.55, Math.min(1, scroll * 1.1));
-    const y = THREE.MathUtils.lerp(isMobile ? -0.45 : -0.15, 0.22, Math.sin(scroll * Math.PI));
-    const z = THREE.MathUtils.lerp(0.2, -0.25, scroll);
+    const side = isMobile ? 0 : 1.22;
+    const x = THREE.MathUtils.lerp(side, isMobile ? 0 : 1.45, Math.min(1, scroll * 1.1));
+    const y = THREE.MathUtils.lerp(isMobile ? -0.08 : -0.12, isMobile ? 0.06 : 0.18, Math.sin(scroll * Math.PI));
+    const z = THREE.MathUtils.lerp(isMobile ? -0.35 : 0.15, isMobile ? -0.55 : -0.2, scroll);
 
-    group.position.x = THREE.MathUtils.damp(group.position.x, -Math.abs(x) + (isMobile ? 0.15 : 0), 3, d);
+    group.position.x = THREE.MathUtils.damp(group.position.x, isMobile ? 0 : -Math.abs(x), 3, d);
     group.position.y = THREE.MathUtils.damp(group.position.y, y, 3, d);
     group.position.z = THREE.MathUtils.damp(group.position.z, z, 3, d);
 
+    body.rotation.y = FACE_YAW;
+
     if (reduced) {
-      group.rotation.set(0, 0, 0);
+      group.rotation.set(0, 0.18, 0);
       return;
     }
 
@@ -85,15 +90,15 @@ function ParrotModel({ reduced, isMobile }: { reduced: boolean; isMobile: boolea
       body.rotation.z = THREE.MathUtils.damp(body.rotation.z, Math.sin(t.current * 1.15) * 0.04, 4, d);
     }
 
-    const lookX = pointer.x * 0.25;
-    const lookY = -pointer.y * 0.16;
-    group.rotation.y = THREE.MathUtils.damp(group.rotation.y, lookX, 2.4, d);
-    group.rotation.x = THREE.MathUtils.damp(group.rotation.x, lookY * 0.4 + Math.sin(t.current * 1.4) * 0.02, 2.4, d);
+    const lookX = pointer.x * (isMobile ? 0.05 : 0.12);
+    const lookY = -pointer.y * (isMobile ? 0.04 : 0.1);
+    group.rotation.y = THREE.MathUtils.damp(group.rotation.y, (isMobile ? 0 : 0.18) + lookX, 2.4, d);
+    group.rotation.x = THREE.MathUtils.damp(group.rotation.x, -0.08 + lookY * 0.3, 2.4, d);
   });
 
   return (
-    <group ref={root} position={[isMobile ? -0.65 : -1.25, isMobile ? -0.4 : -0.12, 0.2]}>
-      <group ref={inner} rotation={[-0.1, Math.PI / 2 + 0.55, 0]}>
+    <group ref={root} position={[isMobile ? 0 : -1.22, isMobile ? -0.08 : -0.12, isMobile ? -0.35 : 0.15]}>
+      <group ref={inner} rotation={[-0.08, FACE_YAW, 0]}>
         <Center>
           <primitive object={clone} />
         </Center>
@@ -112,21 +117,21 @@ export function ParrotStage() {
       className="h-full w-full"
       gl={{ antialias: true, alpha: true, powerPreference: isMobile ? "low-power" : "high-performance" }}
       dpr={dpr}
-      camera={{ position: [0, 0.2, 4.2], fov: isMobile ? 38 : 30 }}
+      camera={{ position: [0, 0.15, 4.2], fov: isMobile ? 42 : 30 }}
       shadows={!isMobile}
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping;
-        gl.toneMappingExposure = 1.2;
+        gl.toneMappingExposure = 1.22;
         gl.setClearColor(0x000000, 0);
         gl.shadowMap.type = THREE.PCFShadowMap;
       }}
     >
-      <hemisphereLight args={["#ffe6c8", "#2a1016", 0.85]} />
-      <directionalLight position={[3.2, 5.4, 2.8]} intensity={2.1} color="#ffe1b5" castShadow={!isMobile} />
-      <directionalLight position={[-3.4, 1.6, -2]} intensity={0.55} color="#7ec8d6" />
-      <spotLight position={[0.6, 4.2, 3.2]} intensity={28} angle={0.38} penumbra={0.8} color="#f1d39a" />
+      <hemisphereLight args={["#ffe6c8", "#2a1016", 0.9]} />
+      <directionalLight position={[2.4, 5.2, 3.4]} intensity={2.2} color="#ffe1b5" castShadow={!isMobile} />
+      <directionalLight position={[-2.2, 1.4, 2.2]} intensity={0.7} color="#fff1dc" />
+      <spotLight position={[0.2, 4, 3.6]} intensity={26} angle={0.42} penumbra={0.8} color="#f1d39a" />
       <ParrotModel reduced={reduced} isMobile={isMobile} />
-      {!isMobile ? <ContactShadows position={[0, -1.15, 0]} opacity={0.35} scale={6} blur={2.4} far={2.5} /> : null}
+      {!isMobile ? <ContactShadows position={[0, -1.15, 0]} opacity={0.32} scale={6} blur={2.4} far={2.5} /> : null}
     </Canvas>
   );
 }

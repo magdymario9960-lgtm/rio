@@ -10,6 +10,8 @@ export type Branch = {
   menuPages?: readonly string[];
   phone: string | null;
   phoneDisplay: string | null;
+  whatsapp: string | null;
+  whatsappDisplay: string | null;
   mapsUrl: string | null;
   reviewUrl: string | null;
   locationLabel: string;
@@ -26,18 +28,22 @@ export const BRANCHES: Record<BranchId, Branch> = {
     id: "alAslougy",
     nameAr: "العصلوجي",
     menuKind: "image",
+    // Replace this JPEG in public/menus/ to update the al-aslougy menu.
     menuImage: "/menus/al-aslougy.jpg",
-    phone: "+201214265158",
-    phoneDisplay: "012 1426 5158",
+    phone: "+201098004304",
+    phoneDisplay: "010 9800 4304",
+    whatsapp: "+201214265158",
+    whatsappDisplay: "+20 012 1426 5158",
     mapsUrl: null,
     reviewUrl: null,
     locationLabel: "فرع العصلوجي",
-    photo: "/branches/al-aslougy.png",
+    photo: "/branches/al-aslougy-photo.png",
   },
   villas: {
     id: "villas",
     nameAr: "الفلل",
     menuKind: "pdf",
+    // Replace villas.pdf and villas-1.jpg … villas-5.jpg in public/menus/.
     menuPdf: "/menus/villas.pdf",
     menuPages: [
       "/menus/villas-1.jpg",
@@ -48,10 +54,12 @@ export const BRANCHES: Record<BranchId, Branch> = {
     ],
     phone: null, // PHONE_NUMBER_TO_BE_PROVIDED
     phoneDisplay: null,
+    whatsapp: null,
+    whatsappDisplay: null,
     mapsUrl: null, // VILLAS_MAP_URL_TO_BE_PROVIDED
     reviewUrl: null, // VILLAS_REVIEW_URL_TO_BE_PROVIDED
     locationLabel: "فرع الفلل",
-    photo: "/branches/villas.jpg",
+    photo: "/branches/villas-photo.jpg",
   },
 };
 

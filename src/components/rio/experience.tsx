@@ -11,7 +11,6 @@ import { LocationSection } from "@/components/rio/location-section";
 import { Footer } from "@/components/rio/footer";
 import { ParrotCanvas } from "@/components/rio/parrot-canvas";
 import { FallingLeaves } from "@/components/rio/falling-leaves";
-import { AlwaysOpenSeal } from "@/components/rio/ornament";
 
 export function Experience() {
   const branchId = useRioStore((s) => s.branchId);
@@ -76,11 +75,6 @@ export function Experience() {
       </a>
       <ParrotCanvas />
       <FallingLeaves />
-      {booted ? (
-        <div className="pointer-events-none fixed top-4 end-4 z-30 md:top-6 md:end-8">
-          <AlwaysOpenSeal />
-        </div>
-      ) : null}
       <div className="relative z-[2]">
         <Hero />
         {branchId ? (

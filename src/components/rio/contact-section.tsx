@@ -2,7 +2,7 @@ import { BRANCHES, BRANCH_ORDER } from "@/lib/branch";
 import { useRioStore } from "@/lib/rio-store";
 import { Reveal } from "@/components/rio/reveal";
 import { RioButton } from "@/components/rio/rio-button";
-import { PhoneIcon } from "@/components/rio/icons";
+import { PhoneIcon, WhatsAppIcon } from "@/components/rio/icons";
 import { GoldFlourish } from "@/components/rio/ornament";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +22,7 @@ export function ContactSection() {
           {BRANCH_ORDER.map((id) => {
             const b = BRANCHES[id];
             const selected = branchId === id;
+            const wa = b.whatsapp ? `https://wa.me/${b.whatsapp.replace(/\D/g, "")}` : null;
             return (
               <Reveal key={id}>
                 <article
@@ -34,18 +35,43 @@ export function ContactSection() {
                   <h3 className="mt-1 text-2xl text-ivory">{b.nameAr}</h3>
                   {b.phone && b.phoneDisplay ? (
                     <>
-                      <p className="mt-3 font-display text-xl text-gold-bright" dir="ltr">
+                      <p className="mt-5 text-xs tracking-lux text-ivory-dim">للاتصال</p>
+                      <p className="mt-1 font-sans text-2xl font-bold tracking-normal text-gold-bright" dir="ltr">
                         {b.phoneDisplay}
                       </p>
-                      <RioButton
-                        href={`tel:${b.phone}`}
-                        className="mt-6 w-full"
-                        onClick={() => setLookAt("contact")}
-                        ariaLabel={`اتصل بفرع ${b.nameAr}`}
-                      >
-                        <PhoneIcon size={18} />
-                        اتصل بنا
-                      </RioButton>
+                      {b.whatsappDisplay ? (
+                        <>
+                          <p className="mt-4 text-xs tracking-lux text-ivory-dim">واتساب</p>
+                          <p className="mt-1 font-sans text-lg font-bold tracking-normal text-ivory" dir="ltr">
+                            {b.whatsappDisplay}
+                          </p>
+                        </>
+                      ) : null}
+                      <div className="mt-6 flex flex-col gap-3">
+                        <RioButton
+                          href={`tel:${b.phone}`}
+                          className="w-full"
+                          onClick={() => setLookAt("contact")}
+                          ariaLabel={`اتصل بفرع ${b.nameAr}`}
+                        >
+                          <PhoneIcon size={18} />
+                          اتصل بنا
+                        </RioButton>
+                        {wa ? (
+                          <RioButton
+                            href={wa}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            variant="ghost"
+                            className="w-full"
+                            onClick={() => setLookAt("contact")}
+                            ariaLabel={`واتساب فرع ${b.nameAr}`}
+                          >
+                            <WhatsAppIcon size={18} />
+                            واتساب
+                          </RioButton>
+                        ) : null}
+                      </div>
                     </>
                   ) : (
                     <p className="mt-6 text-sm text-ivory-dim">رقم الفرع هيتحط هنا أول ما يتوفر.</p>
