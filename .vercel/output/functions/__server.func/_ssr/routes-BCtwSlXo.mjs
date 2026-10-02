@@ -3,7 +3,7 @@ import { d as require_jsx_runtime, f as require_react } from "../_libs/@react-th
 import { n as create, t as persist } from "../_libs/zustand.mjs";
 import { t as clsx } from "../_libs/clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-RLTz5Bu0.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BCtwSlXo.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var __defProp = Object.defineProperty;
@@ -92,6 +92,7 @@ var BRANCHES = {
 		menuImage: "/menus/al-aslougy.jpg",
 		phone: "+201214265158",
 		phoneDisplay: "012 1426 5158",
+		whatsapp: "+201098004304",
 		mapsUrl: null,
 		reviewUrl: null,
 		locationLabel: "فرع العصلوجي",
@@ -111,6 +112,7 @@ var BRANCHES = {
 		],
 		phone: null,
 		phoneDisplay: null,
+		whatsapp: null,
 		mapsUrl: null,
 		reviewUrl: null,
 		locationLabel: "فرع الفلل",
@@ -447,6 +449,17 @@ function CloseIcon(props) {
 		})
 	});
 }
+function WhatsAppIcon(props) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
+		...base(props),
+		"aria-hidden": "true",
+		viewBox: "0 0 24 24",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+			fill: "currentColor",
+			d: "M12.04 3.2A8.7 8.7 0 0 0 3.3 11.9c0 1.53.4 3.03 1.16 4.35L3.2 20.8l4.68-1.22a8.77 8.77 0 0 0 4.16 1.06h.04c4.8 0 8.7-3.9 8.72-8.7 0-2.32-.9-4.5-2.55-6.14A8.64 8.64 0 0 0 12.04 3.2Zm0 15.9h-.03a7.3 7.3 0 0 1-3.72-.99l-.27-.16-2.77.73.74-2.7-.18-.28a7.24 7.24 0 0 1-1.14-3.9 7.28 7.28 0 0 1 12.4-5.18 7.2 7.2 0 0 1 2.14 5.16c-.02 4.02-3.3 7.3-7.17 7.3Zm4.02-5.46c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.14-.26.16-.48.05-.22-.11-.93-.34-1.77-1.1-.65-.58-1.1-1.3-1.22-1.52-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.06-.11-.5-1.2-.68-1.64-.18-.43-.36-.37-.5-.38h-.42c-.15 0-.4.06-.6.28-.22.22-.8.78-.8 1.9 0 1.12.82 2.2.94 2.35.11.15 1.6 2.45 3.88 3.44.54.23.97.37 1.3.48.55.17 1.04.15 1.43.09.44-.06 1.3-.53 1.48-1.05.18-.51.18-.96.13-1.05-.06-.1-.2-.15-.42-.26Z"
+		})
+	});
+}
 function HeartIcon(props) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
 		...base(props),
@@ -544,10 +557,14 @@ function Hero() {
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "pointer-events-none absolute inset-0 overflow-hidden",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-					src: "/gallery/lounge-sign.jpg",
+					src: "/gallery/pink-brick.jpg",
 					alt: "",
-					className: "size-full object-cover opacity-25"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--color-wine-deep)_72%)]" })]
+					className: "size-full object-cover opacity-20"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(61_16_24_/_35%)_0%,var(--color-wine-deep)_78%)]" })]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "absolute top-5 end-5 z-10 md:top-8 md:end-10",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlwaysOpenSeal, {})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "relative z-10 mx-auto flex max-w-xl flex-col items-center",
@@ -643,6 +660,20 @@ function RioButton({ children, className, variant = "gold", href, download, onCl
 		children
 	});
 }
+function PageNumbers({ count, page, onPick, large }) {
+	if (count <= 1) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: cn("flex flex-wrap items-center justify-center", large ? "gap-3 py-4" : "mt-3 gap-2"),
+		children: Array.from({ length: count }, (_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+			type: "button",
+			onClick: () => onPick(i),
+			className: cn("font-sans font-bold transition-transform duration-150", large ? "grid size-14 place-items-center rounded-2xl text-2xl md:size-16 md:text-3xl" : "grid size-11 place-items-center rounded-xl text-lg", i === page ? "bg-gold text-ink scale-105" : "bg-wine-mid text-ivory hover:bg-wine-soft"),
+			"aria-label": `صفحة ${i + 1}`,
+			"aria-current": i === page ? "page" : void 0,
+			children: i + 1
+		}, i))
+	});
+}
 function MenuSection() {
 	const branchId = useRioStore((s) => s.branchId) ?? "alAslougy";
 	const setLookAt = useRioStore((s) => s.setLookAt);
@@ -659,6 +690,11 @@ function MenuSection() {
 	const branch = BRANCHES[active];
 	const pages = branch.menuKind === "pdf" ? branch.menuPages ?? [] : branch.menuImage ? [branch.menuImage] : [];
 	const current = pages[Math.min(page, pages.length - 1)];
+	const goHome = () => {
+		setLightbox(false);
+		setZoom(1);
+		document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		id: "menu",
 		className: "relative px-5 py-24 md:py-32",
@@ -734,15 +770,12 @@ function MenuSection() {
 										className: "mx-auto max-h-[80vh] w-full object-contain"
 									})
 								}) : null,
-								pages.length > 1 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "mt-3 flex items-center justify-center gap-2",
-									children: pages.map((src, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-										type: "button",
-										onClick: () => setPage(i),
-										className: cn("size-2 rounded-full transition-transform", i === page ? "scale-125 bg-gold" : "bg-ivory/30"),
-										"aria-label": `صفحة ${i + 1}`
-									}, src))
-								}) : null
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PageNumbers, {
+									count: pages.length,
+									page,
+									onPick: setPage,
+									large: pages.length > 1
+								})
 							]
 						})
 					})
@@ -758,28 +791,38 @@ function MenuSection() {
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "flex items-center justify-between gap-2 py-2",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RioButton, {
+							variant: "gold",
+							className: "min-h-11 px-5",
+							onClick: goHome,
+							ariaLabel: "رجوع للرئيسية",
+							children: "رجوع"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "flex gap-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RioButton, {
-								variant: "ghost",
-								className: "min-h-11 px-4",
-								onClick: () => setZoom((z) => Math.min(3, z + .25)),
-								children: "+"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RioButton, {
-								variant: "ghost",
-								className: "min-h-11 px-4",
-								onClick: () => setZoom((z) => Math.max(1, z - .25)),
-								children: "−"
-							})]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-							type: "button",
-							className: "grid size-11 place-items-center rounded-full text-ivory",
-							onClick: () => {
-								setLightbox(false);
-								setZoom(1);
-							},
-							"aria-label": "إغلاق",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CloseIcon, {})
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RioButton, {
+									variant: "ghost",
+									className: "min-h-11 px-4",
+									onClick: () => setZoom((z) => Math.min(3, z + .25)),
+									children: "+"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RioButton, {
+									variant: "ghost",
+									className: "min-h-11 px-4",
+									onClick: () => setZoom((z) => Math.max(1, z - .25)),
+									children: "−"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									type: "button",
+									className: "grid size-11 place-items-center rounded-full text-ivory",
+									onClick: () => {
+										setLightbox(false);
+										setZoom(1);
+									},
+									"aria-label": "إغلاق",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CloseIcon, {})
+								})
+							]
 						})]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -795,15 +838,12 @@ function MenuSection() {
 							}
 						})
 					}),
-					pages.length > 1 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "flex justify-center gap-2 py-3",
-						children: pages.map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-							type: "button",
-							onClick: () => setPage(i),
-							className: cn("rounded-full px-3 py-2 text-sm", i === page ? "bg-gold text-ink" : "text-ivory-dim"),
-							children: i + 1
-						}, i))
-					}) : null
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PageNumbers, {
+						count: pages.length,
+						page,
+						onPick: setPage,
+						large: true
+					})
 				]
 			})
 		}) : null]
@@ -887,8 +927,10 @@ function ContactSection() {
 				className: "mt-12 grid gap-4 md:grid-cols-2",
 				children: BRANCH_ORDER.map((id) => {
 					const b = BRANCHES[id];
+					const selected = branchId === id;
+					const wa = b.whatsapp ? `https://wa.me/${b.whatsapp.replace(/\D/g, "")}` : null;
 					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
-						className: cn("rounded-2xl bg-wine p-6 shadow-[var(--shadow-soft)]", branchId === id && "shadow-[var(--shadow-gold)]"),
+						className: cn("rounded-2xl bg-wine p-6 shadow-[var(--shadow-soft)]", selected && "shadow-[var(--shadow-gold)]"),
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 								className: "font-display text-xs tracking-lux text-gold",
@@ -899,15 +941,27 @@ function ContactSection() {
 								children: b.nameAr
 							}),
 							b.phone && b.phoneDisplay ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "mt-3 font-display text-xl text-gold-bright",
+								className: "mt-4 font-sans text-2xl font-bold tracking-normal text-gold-bright",
 								dir: "ltr",
 								children: b.phoneDisplay
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(RioButton, {
-								href: `tel:${b.phone}`,
-								className: "mt-6 w-full",
-								onClick: () => setLookAt("contact"),
-								ariaLabel: `اتصل بفرع ${b.nameAr}`,
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PhoneIcon, { size: 18 }), "اتصل بنا"]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "mt-6 flex flex-col gap-3",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(RioButton, {
+									href: `tel:${b.phone}`,
+									className: "w-full",
+									onClick: () => setLookAt("contact"),
+									ariaLabel: `اتصل بفرع ${b.nameAr}`,
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PhoneIcon, { size: 18 }), "اتصل بنا"]
+								}), wa ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(RioButton, {
+									href: wa,
+									target: "_blank",
+									rel: "noopener noreferrer",
+									variant: "ghost",
+									className: "w-full",
+									onClick: () => setLookAt("contact"),
+									ariaLabel: `واتساب فرع ${b.nameAr}`,
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(WhatsAppIcon, { size: 18 }), "واتساب"]
+								}) : null]
 							})] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 								className: "mt-6 text-sm text-ivory-dim",
 								children: "رقم الفرع هيتحط هنا أول ما يتوفر."
@@ -1037,22 +1091,14 @@ function ParrotCanvas() {
 			return;
 		}
 		let alive = true;
-		import("./parrot-stage-DuTIXBcG.mjs").then((mod) => {
+		import("./parrot-stage-gvHTAh95.mjs").then((mod) => {
 			if (alive) setStage(() => mod.ParrotStage);
 		});
 		return () => {
 			alive = false;
 		};
 	}, []);
-	if (fallback) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		className: "pointer-events-none absolute inset-0 z-[1] overflow-hidden",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-			src: "/gallery/macaw-mural.jpg",
-			alt: "",
-			className: "absolute start-[-10%] top-[18%] w-[52%] max-w-sm rounded-full opacity-70 md:top-[12%] md:w-[34%]"
-		})
-	});
-	if (!Stage) return null;
+	if (fallback || !Stage) return null;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "pointer-events-none fixed inset-0 z-[1]",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Stage, {})
@@ -1181,10 +1227,6 @@ function Experience() {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ParrotCanvas, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FallingLeaves, {}),
-			booted ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "pointer-events-none fixed top-4 end-4 z-30 md:top-6 md:end-8",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlwaysOpenSeal, {})
-			}) : null,
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "relative z-[2]",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hero, {}), branchId ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
