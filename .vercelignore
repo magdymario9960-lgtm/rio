@@ -1,0 +1,8 @@
+.grok
+.tanstack
+screenshots
+attachments
+artifacts
+.git
+*.log
+AGENTS.md

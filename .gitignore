@@ -3,3 +3,17 @@ node_modules/
 .github_repo
 .env
 .env.*
+.vercel/
+.tanstack/
+.grok/
+screenshots/
+attachments/
+artifacts/
+dist/
+*.log
+.DS_Store
+/*.png
+/*.jpeg
+/*.jpg
+/*.glb
+/*.pdf

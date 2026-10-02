@@ -5,8 +5,9 @@ import * as THREE from "three";
 import { useRioStore } from "@/lib/rio-store";
 import { prefersReducedMotion } from "@/lib/utils";
 
-useGLTF.preload("/models/parrot.glb");
-
+if (typeof window !== "undefined") {
+  useGLTF.preload("/models/parrot.glb");
+}
 /** Authored mesh faces -X; this yaw puts the cream macaw face toward the camera. */
 const FACE_YAW = Math.PI / 2 + 0.55;
 
